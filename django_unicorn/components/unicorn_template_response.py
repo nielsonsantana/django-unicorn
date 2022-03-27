@@ -160,10 +160,10 @@ class UnicornTemplateResponse(TemplateResponse):
                 script_tag = soup.new_tag("script")
                 script_tag["type"] = "module"
                 script_tag.string = f"if (typeof Unicorn === 'undefined') {{ console.error('Unicorn is missing. Do you need {{% load unicorn %}} or {{% unicorn_scripts %}}?') }} else {{ {init_script} }}"
-                root_element.insert_after(script_tag)
+                root_element.append(script_tag)
 
                 for t in json_tags:
-                    root_element.insert_after(t)
+                    root_element.append(t)
 
         rendered_template = UnicornTemplateResponse._desoupify(soup)
         self.component.rendered(rendered_template)
